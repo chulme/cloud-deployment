@@ -1,17 +1,9 @@
-def credentials = 'github-credentials'
-def repo = 'https://github.com/chulme/jenkins-ci.git'
 
 pipeline{   
     
     agent any
 
     stages{
-        stage('Pull from Git'){
-            steps{
-                echo 'Pulling...'
-                git branch: 'master', credentialsId: credentials, url: repo
-            }
-         }
 
         stage('Build and run source code'){
             steps{
