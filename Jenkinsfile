@@ -8,10 +8,10 @@ pipeline{
         stage('Build and run source code'){
             steps{
                 echo 'Building...'
-                sh 'g++ --version'
-                sh 'mkdir -p obj'
-                sh 'make'
-                sh './output'
+                bat 'g++ --version'
+                bat 'mkdir -p obj'
+                bat 'make'
+                bat './output'
             }
         }
 
@@ -19,9 +19,9 @@ pipeline{
             steps{
                 dir('Unit Tests'){
                     echo 'Testing...'
-                    sh 'mkdir -p obj'
-                    sh 'make'
-                    sh './output'
+                    bat 'mkdir -p obj'
+                    bat 'make'
+                    bat './output'
 
                 }
             }
