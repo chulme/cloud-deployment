@@ -10,7 +10,7 @@ pipeline{
                 echo 'Building...'
                 bat 'g++ --version'
                 bat 'mingw32-make'
-                bat './output'
+                bat 'output'
             }
         }
 
@@ -19,7 +19,7 @@ pipeline{
                 dir('Unit Tests'){
                     echo 'Testing...'
                     bat 'mingw32-make'
-                    bat './output'
+                    bat 'output'
 
                 }
             }
