@@ -1,0 +1,1 @@
+bool increment(int & number);
