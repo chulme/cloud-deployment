@@ -9,8 +9,8 @@ pipeline{
             steps{
                 echo 'Building...'
                 bat 'g++ --version'
-                bat 'mkdir -p obj'
-                bat 'make'
+                bat 'mkdir obj'
+                bat 'mingw32-make'
                 bat './output'
             }
         }
@@ -19,8 +19,8 @@ pipeline{
             steps{
                 dir('Unit Tests'){
                     echo 'Testing...'
-                    bat 'mkdir -p obj'
-                    bat 'make'
+                    bat 'mkdir obj'
+                    bat 'mingw32-make'
                     bat './output'
 
                 }
