@@ -50,6 +50,6 @@ int main()
     
     std::cout << "Running unit tests...\n";
     int result = session.run(6,args);
-    
-    exit(result);
+
+    return 0;    
 }
