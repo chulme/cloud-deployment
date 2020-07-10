@@ -48,6 +48,7 @@ int main()
     char*args[6]= {(char*) "Hello World", (char*) "-r", (char*) "junit",
         (char*) "--out", (char*) "test-results.xml", (char*)"--success"};
     
+    std::cout << "Running unit tests...\n";
     int result = session.run(6,args);
     
     return result;
