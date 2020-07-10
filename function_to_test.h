@@ -1,1 +1,1 @@
-bool increment(int & number);
+void increment(int & number);

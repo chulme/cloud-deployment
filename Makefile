@@ -1,11 +1,11 @@
-output: main.o functions_to_test.o
-    g++ main.o functions_to_test.o -o output
+output: main.o function_to_test.o
+	g++ main.o function_to_test.o -o output
 
 main.o: main.cpp
-    g++ -c main.cpp
+	g++ -c main.cpp
 
-functions_to_test.o: functions_to_test.cpp
-    g++ -c functions_to_test.cpp
+function_to_test.o: function_to_test.cpp
+	g++ -c function_to_test.cpp
 
 clean:
-    rm *.o *.exe
+	rm *.o *.exe
