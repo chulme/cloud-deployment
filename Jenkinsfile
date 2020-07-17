@@ -28,7 +28,7 @@ pipeline{
 		stage('Build docker image'){
 			steps{
 				bat 'docker build -t increment .'
-				bat 'docker run -it --rm --name Increment_Example_Jenkins increment'
+				bat 'winpty docker run -it --rm --name Increment_Example_Jenkins increment'
 			}
 		}
 
