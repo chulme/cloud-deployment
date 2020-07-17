@@ -8,4 +8,4 @@ function_to_test.o: function_to_test.cpp
 	g++ -c function_to_test.cpp
 
 clean:
-	rm *.o *.exe
+	rm *.o

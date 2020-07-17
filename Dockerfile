@@ -3,3 +3,4 @@ COPY . /src
 WORKDIR /src
 RUN make
 CMD ["./output"]
+RUN make clean
