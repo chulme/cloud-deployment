@@ -32,5 +32,10 @@ pipeline{
                 }
             }
         }
+		
+		stage('Build docker image'){
+			bat 'docker build -t increment .'
+			bat 'docker run -it --rm --name Increment_Example_Jenkins increment'
+		}
     }
 }
