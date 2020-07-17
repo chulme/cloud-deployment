@@ -25,6 +25,13 @@ pipeline{
             }
         }
 
+		stage('Build docker image'){
+			steps{
+				bat 'docker build -t increment .'
+				bat 'docker run -it --rm --name Increment_Example_Jenkins increment'
+			}
+		}
+
         stage('Reporting unit test results'){
             steps{
                 dir("Unit Tests"){
@@ -33,9 +40,5 @@ pipeline{
             }
         }
 		
-		stage('Build docker image'){
-			bat 'docker build -t increment .'
-			bat 'docker run -it --rm --name Increment_Example_Jenkins increment'
-		}
     }
 }
