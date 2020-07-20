@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_RUNNER
 
 #include "catch.hpp"
-#include "../function_to_test.h"
+#include "../src/function_to_test.h"
 
 TEST_CASE("Increment a positive int")
 {
