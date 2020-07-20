@@ -1,5 +1,5 @@
 FROM gcc:4.9
-COPY . /src
+COPY src /src
 WORKDIR /src
 RUN make
 CMD ["./output"]
