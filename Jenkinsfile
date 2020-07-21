@@ -62,8 +62,8 @@ pipeline{
 		stage('Send build output to AWS'){
 			steps{
 				script{
-					sh "echo helloworld"
-					bat "scp -i ${aws_key} output ${aws_dns}:output"
+					//bat "scp -i ${aws_key} output ${aws_dns}:output"
+					bat "pscp -i ${aws_key} output ${aws_dns}:output"
 				}
 			}
 		}
