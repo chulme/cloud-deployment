@@ -1,3 +1,7 @@
+//Pipeline requires the following environment variables to be set:
+//	chris-aws-key: file location to aws key
+//	aws-dns: the public dns to access AWS EC2 instance
+
 def getCommandOutput(cmd) {
        stdout = bat(returnStdout:true , script: cmd).trim()
        result = stdout.readLines().drop(1).join(" ")       
