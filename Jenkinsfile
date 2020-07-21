@@ -1,5 +1,7 @@
-//Pipeline requires the following environment variables to be set:
-//	aws_key: file location to aws key (needs to be converted from .pem to ppk)
+//Pipeline requires PuTTY to be installed, as well as the following environment variables to be set:
+//	aws_key: file location to aws key (needs to be converted from .pem to ppk using PuTTYgen;
+//									   chmod 400 to send;
+//									   chmod +x to execute on AWS)
 //	aws_dns: the public dns to access AWS EC2 instance
 
 def getCommandOutput(cmd) {
@@ -39,7 +41,6 @@ pipeline{
 				script{
 					bat 'docker build -t increment .' 
 					bat 'docker run --rm --name Increment_Example_Jenkins increment'
-					
 				}
 			}
 		}
@@ -62,10 +63,7 @@ pipeline{
 		stage('Send build output to AWS'){
 			steps{
 				script{
-					//bat "scp -i ${aws_key} /build_output ${aws_dns}:build_output"
-					bat "echo y | pscp -i ${aws_key} build_output/output ${aws_dns}:build_output"
-					
-					
+					bat "echo y | pscp -i ${aws_key} build_output/output ${aws_dns}:build_output"	//echo y | required in the event of a ssh confirmation				
 				}
 			}
 		}
