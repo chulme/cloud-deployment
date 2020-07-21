@@ -1,7 +1,15 @@
+def getCommandOutput(cmd) {
+       stdout = bat(returnStdout:true , script: cmd).trim()
+       result = stdout.readLines().drop(1).join(" ")       
+       return result
+}
+
 
 pipeline{   
     
     agent any
+
+	
 
     stages{
 
@@ -32,8 +40,7 @@ pipeline{
 					bat 'docker run --rm --name Increment_Example_Jenkins increment'
 					
 					def script = '''docker create increment'''
-					def stdout = bat(script: script, returnStdout:true).trim()
-					def containerID = stdout.readLines().drop(1).join(" ")
+					def containerID = getCommandOutput(script)
 					echo "the containerID is $containerID"
 					bat "docker cp ${containerID}:/src build_output"
 				}
