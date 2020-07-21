@@ -27,14 +27,15 @@ pipeline{
 
 		stage('Build docker image'){
 			steps{
-				bat 'docker build -t increment .'
-				bat 'docker run --rm --name Increment_Example_Jenkins increment'
-				
-				def script = '''docker create increment'''
-				def containerID = bat(script: script, returnStdout:true)
-				echo "$containerID"
-				bat 'docker cp $containerID:/src build_output'
-				
+				script{
+					bat 'docker build -t increment .'
+					bat 'docker run --rm --name Increment_Example_Jenkins increment'
+					
+					def script = '''docker create increment'''
+					def containerID = bat(script: script, returnStdout:true)
+					echo "$containerID"
+					bat 'docker cp $containerID:/src build_output'
+				}
 			}
 		}
 
