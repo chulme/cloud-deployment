@@ -64,6 +64,7 @@ pipeline{
 				script{
 					//bat "scp -i ${aws_key} /build_output ${aws_dns}:build_output"
 					bat "pscp -i ${aws_key} build_output/output ${aws_dns}:build_output"
+					bat "y"
 				}
 			}
 		}
