@@ -53,6 +53,7 @@ pipeline{
 					def containerID = getCommandOutput(script)
 					bat "docker cp ${containerID}:/src build_output" //copies the contents of the src folder, which only contains the cpp .exe
 																	 //due to cleaning of all other files during the Docker build stage.
+					bat 'docker rm ${containerID}'
 				}
 			}
 		}
