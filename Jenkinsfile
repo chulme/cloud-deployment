@@ -54,6 +54,14 @@ pipeline{
 				}
 			}
 		}
+		
+		stage('Send build output to AWS'){
+			steps{
+				script{
+					bat "scp -i ${chris-aws-key} output ${aws-dns}:output"
+				}
+			}
+		}
 
         stage('Reporting unit test results'){
             steps{
