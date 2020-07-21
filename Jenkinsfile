@@ -1,5 +1,5 @@
 //Pipeline requires the following environment variables to be set:
-//	aws_key: file location to aws key
+//	aws_key: file location to aws key (needs to be converted from .pem to ppk)
 //	aws_dns: the public dns to access AWS EC2 instance
 
 def getCommandOutput(cmd) {
