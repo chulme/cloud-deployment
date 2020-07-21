@@ -36,13 +36,20 @@ pipeline{
 		stage('Build docker image'){
 			steps{
 				script{
-					bat 'docker build -t increment .'
+					bat 'docker build -t increment .' 
 					bat 'docker run --rm --name Increment_Example_Jenkins increment'
 					
-					def script = '''docker create increment'''
+				}
+			}
+		}
+		
+		stage('Export build output'){
+			steps{
+				script{
+					def script = '''docker create increment''' //creates a container around the image, returns the containerID in the console.
 					def containerID = getCommandOutput(script)
-					echo "the containerID is $containerID"
-					bat "docker cp ${containerID}:/src build_output"
+					bat "docker cp ${containerID}:/src build_output" //copies the contents of the src folder, which only contains the cpp .exe
+																	 //due to cleaning of all other files during the Docker build stage.
 				}
 			}
 		}
