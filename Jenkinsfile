@@ -1,6 +1,6 @@
 //Pipeline requires the following environment variables to be set:
-//	chris-aws-key: file location to aws key
-//	aws-dns: the public dns to access AWS EC2 instance
+//	aws_key: file location to aws key
+//	aws_dns: the public dns to access AWS EC2 instance
 
 def getCommandOutput(cmd) {
        stdout = bat(returnStdout:true , script: cmd).trim()
@@ -62,7 +62,7 @@ pipeline{
 		stage('Send build output to AWS'){
 			steps{
 				script{
-					bat "scp -i ${chris-aws-key} output ${aws-dns}:output"
+					bat "scp -i ${aws_key} output ${aws_dns}:output"
 				}
 			}
 		}
