@@ -32,8 +32,9 @@ pipeline{
 					bat 'docker run --rm --name Increment_Example_Jenkins increment'
 					
 					def script = '''docker create increment'''
-					def containerID[:] = bat(script: script, returnStdout:true)
-					echo "the containerID is $containerID[1]"
+					def stdout = bat(script: script, returnStdout:true).trim()
+					def containerID = stdout.readLines().drop(1).join(" ")
+					echo "the containerID is $containerID"
 					bat "docker cp ${containerID}:/src build_output"
 				}
 			}
