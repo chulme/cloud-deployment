@@ -32,7 +32,7 @@ pipeline{
 				
 				def containerID = bat(script: 'docker create increment', returnStdout:true)
 				echo "$containerID"
-				bat 'docker cp $containerID:/src build_output
+				bat 'docker cp $containerID:/src build_output'
 				
 			}
 		}
