@@ -15,5 +15,5 @@ RUN make
 RUN make clean && rm Makefile *.cpp *.h
 
 #=============RUN STEPS====================
-#The command executed when the image is ran, which runs the C++ executable
+#This command is executed when the image is ran, which runs the C++ executable
 CMD ["./output"]
