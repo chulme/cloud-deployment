@@ -34,7 +34,7 @@ pipeline{
 					def script = '''docker create increment'''
 					def containerID = bat(script: script, returnStdout:true)
 					echo "the containerID is $containerID"
-					bat 'docker cp ${containerID}:/src build_output'
+					bat "docker cp ${containerID}:/src build_output"
 				}
 			}
 		}
