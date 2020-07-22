@@ -71,7 +71,7 @@ pipeline{
 		stage('Send image to AWS through Docker Compose'){
 			steps{
 				script{
-					def image_name = ${aws_public_ip}/chrishulme/increment
+					def image_name = "${aws_public_ip}/chrishulme/increment"
 					bat "docker tag increment ${image_name}"
 					bat "docker push ${image_name}"
 				}
