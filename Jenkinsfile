@@ -68,6 +68,15 @@ pipeline{
 			}
 		}
 		
+		stage('Send image tar to AWS via SSH'){
+			steps{
+				script{
+						bat "docker save increment >increment.tar"
+						bat "echo y | pscp -i ${aws_key} increment.tar ${aws_dns}:increment.tar"	//echo y | required in the event of a ssh confirmation				
+				}
+			}
+		}
+		
 		stage('Send image to AWS through Docker Compose'){
 			steps{
 				script{
