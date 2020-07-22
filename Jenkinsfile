@@ -38,7 +38,7 @@ pipeline{
 
 		stage('Build docker image'){
 			steps{
-				script{
+				script{				
 					bat 'docker build -t increment .' 
 					bat 'docker run --rm --name Increment_Example_Jenkins increment'
 				}
@@ -60,10 +60,20 @@ pipeline{
 			}
 		}
 		
-		stage('Send build output to AWS'){
+		stage('Send build output to AWS via SSH'){
 			steps{
 				script{
 					bat "echo y | pscp -i ${aws_key} build_output/output ${aws_dns}:build_output"	//echo y | required in the event of a ssh confirmation				
+				}
+			}
+		}
+		
+		stage('Send image to AWS through Docker Compose'){
+			steps{
+				script{
+					def image_name = ${aws_public_ip}/chrishulme/increment
+					bat "docker tag increment ${image_name}"
+					bat "docker push ${image_name}"
 				}
 			}
 		}
