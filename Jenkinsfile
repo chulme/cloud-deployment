@@ -81,7 +81,7 @@ pipeline{
 		stage('Trigger handoff to AWS server'){
 			steps{
 				script{
-					bat "echo yes | ssh -i ${aws_dns} python_file_detection/image_loader.sh
+					bat "echo yes | ssh -i ${aws_dns} python_file_detection/image_loader.sh"
 				}
 			}
 		}
