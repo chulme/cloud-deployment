@@ -59,7 +59,7 @@ pipeline{
 				}
 			}
 		}
-		
+		/*
 		stage('Send build output to AWS via SSH'){
 			steps{
 				script{
@@ -67,16 +67,18 @@ pipeline{
 				}
 			}
 		}
+		*/
 		
 		stage('Send image tar to AWS via SSH'){
 			steps{
 				script{
 						bat "docker save increment >increment.tar"
-						bat "echo y | pscp -i ${aws_key} increment.tar ${aws_dns}:increment.tar"	//echo y | required in the event of a ssh confirmation				
+						bat "echo y | pscp -i ${aws_key} increment.tar ${aws_dns}:/python_file_detection/shared_workspace/tracker/increment.tar"	//echo y | required in the event of a ssh confirmation				
 				}
 			}
 		}
 		
+		/*
 		stage('Send image to AWS through Docker Compose'){
 			steps{
 				script{
@@ -86,6 +88,7 @@ pipeline{
 				}
 			}
 		}
+		*/
 
         stage('Reporting unit test results'){
             steps{
