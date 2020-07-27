@@ -10,94 +10,44 @@ def getCommandOutput(cmd) {
        return result
 }
 
+def image_name = "tracker"
+def container_name ="tracker_container"
+def shared_workspace = "shared"
+def image_loader_path="automation/image_loader.sh"
+
 pipeline{   
     
     agent any
 	
     stages{
 
-    //    stage('Build and run source code'){
-    //        steps{
-    //            echo 'Building...'
-    //            bat 'g++ --version'
-    //            bat 'mingw32-make'
-    //            bat 'output'
-    //        }
-    //    }
-
-        stage('Build and run unit tests'){
-            steps{
-                dir('Unit Tests'){
-                    echo 'Testing...'
-                    bat 'mingw32-make'
-                    bat 'output'
-
-                }
-            }
-        }
-
 		stage('Build docker image'){
 			steps{
 				script{				
-					bat 'docker build -t increment .' 
-					bat 'docker run --rm --name Increment_Example_Jenkins increment'
+					bat "docker build -t ${image_name} ." 
+					bat "docker run --rm --name ${container_name} ${image_name}"
 				}
 			}
 		}
 		
-		stage('Export build output'){
-			steps{
-				script{
-					dir('build_output'){
-						deleteDir()
-					}
-					def script = '''docker create increment''' //creates a container around the image, returns the containerID in the console.
-					def containerID = getCommandOutput(script)
-					bat "docker cp ${containerID}:/src build_output" //copies the contents of the src folder, which only contains the cpp .exe
-																	 //due to cleaning of all other files during the Docker build stage.
-					bat "docker rm ${containerID}"
-				}
-			}
-		}
-		/*
-		stage('Send build output to AWS via SSH'){
-			steps{
-				script{
-					bat "echo y | pscp -i ${aws_key} build_output/output ${aws_dns}:build_output"	//echo y | required in the event of a ssh confirmation				
-				}
-			}
-		}
-		*/
 		
 		stage('Send image tar to AWS via SSH'){
 			steps{
 				script{
-						bat "docker save increment >increment.tar.gz"
-						bat "echo y | pscp -i ${aws_key} increment.tar.gz ${aws_dns}:python_file_detection/shared_workspace/tracker.tar.gz"	//echo y | required in the event of a ssh confirmation
+						bat "docker save ${image_name} >${image_name}.tar.gz"
+						bat "echo y | pscp -i ${aws_key} ${image_name}.tar.gz ${aws_dns}:${shared_workspace}/${image_name}.tar.gz"	//echo y | required in the event of a ssh confirmation
 				}
 			}
 		}
 		
-		stage('Trigger handoff to AWS server'){
+		stage("Load image to cloud server's Docker instance"){
 			steps{
 				script{
-					bat "echo yes | ssh -i ${aws_dns} python_file_detection/image_loader.sh"
+					bat "echo yes | ssh -i ${aws_dns} ${image_loader_path}"
 				}
 			}
 		}
 		
-		/*
-		stage('Send image to AWS through Docker Compose'){
-			steps{
-				script{
-					def image_name = "${aws_public_ip}/chrishulme/increment"
-					bat "docker tag increment ${image_name}"
-					bat "docker push ${image_name}"
-				}
-			}
-		}
-		*/
-
         stage('Reporting unit test results'){
             steps{
                 dir("Unit Tests"){
