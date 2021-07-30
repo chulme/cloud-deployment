@@ -1,4 +1,7 @@
-# Jenkins CI
+# Cloud Deployment
+A simple project to learn the basics of cloud deployment of C++ software using Docker, Jenkins and AWS.
+
+## Jenkins CI
 A very straightforward pipeline used to learn the basics of Jenkins, CI/CD & the Catch unit-test framework.
 
 ## What is CI/CD?
